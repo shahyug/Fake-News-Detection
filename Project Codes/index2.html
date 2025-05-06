@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fake News Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #e8eaf6);
+      color: #2c3e50;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #00bcd4;
+    }
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: #37474f;
+    }
+    nav a:hover {
+      color: #00acc1;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #00acc1, #7e57c2);
+      color: white;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .hero a {
+      background: white;
+      color: #00acc1;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .hero a:hover {
+      background: #e0f7fa;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 4rem 2rem;
+      background: white;
+      text-align: center;
+    }
+    .feature {
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease;
+    }
+    .feature:hover {
+      transform: translateY(-6px);
+    }
+    .feature i {
+      font-size: 2rem;
+      color: #00acc1;
+      margin-bottom: 1rem;
+    }
+    .feature h3 {
+      margin-bottom: 0.5rem;
+      color: #263238;
+    }
+
+    .check-section {
+      background: linear-gradient(to top left, #fce4ec, #e1f5fe);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .check-section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      color: #37474f;
+    }
+    .check-box {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    textarea, input[type="url"], input[type="file"] {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    button {
+      background: #00acc1;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #00838f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      font-size: 0.9rem;
+      color: #607d8b;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      nav a {
+        margin-left: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">📰 FakeNews Detector</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#check">Check News</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Detect Fake News Instantly</h1>
+    <p>Empowered by Artificial Intelligence to fight misinformation in real-time.</p>
+    <a href="#check">Start Detecting</a>
+  </section>
+
+  <section id="features" class="features">
+    <div class="feature">
+      <i class="fas fa-brain"></i>
+      <h3>Smart AI Engine</h3>
+      <p>Uses NLP and ML to evaluate the truthfulness of news content with high accuracy.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-bolt"></i>
+      <h3>Fast Detection</h3>
+      <p>Analyze news text, links, or files and get results instantly with a confidence score.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Secure & Private</h3>
+      <p>Your data is never saved. We respect your privacy 100% with encrypted processing.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-file-upload"></i>
+      <h3>Flexible Inputs</h3>
+      <p>Paste news text, enter a URL, or upload documents (PDF, TXT, DOCX).</p>
+    </div>
+  </section>
+
+  <section id="check" class="check-section">
+    <h2>Try the Detector</h2>
+    <div class="check-box">
+      <textarea rows="5" placeholder="Paste news text here..."></textarea>
+      <input type="url" placeholder="Or paste a news article URL..." />
+      <input type="file" accept=".pdf,.doc,.docx,.txt" />
+      <button><i class="fas fa-search"></i> Analyze</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 FakeNews AI. All rights reserved. Built for truth and transparency.
+  </footer>
+
+</body>
+</html>

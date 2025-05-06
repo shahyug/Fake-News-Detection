@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fake News Detection</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fceff9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #ff5e78;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    textarea, input[type="url"], input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ff5e78;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin-top: 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #e0435f;
+    }
+
+    .result-box {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f0f8f7;
+      border-left: 5px solid #2ecc71;
+      display: none;
+      font-weight: bold;
+    }
+
+    .loader {
+      display: none;
+      margin-top: 10px;
+      color: #ff5e78;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    Fake News Detection System
+  </header>
+
+  <div class="container">
+    <h2>Enter News Text</h2>
+    <textarea id="text-input" rows="6" placeholder="Paste news text here..."></textarea>
+    <button onclick="analyzeText()">Analyze Text</button>
+
+    <h2>OR Enter News URL</h2>
+    <input type="url" id="url-input" placeholder="Paste article URL here...">
+    <button onclick="analyzeURL()">Analyze URL</button>
+
+    <h2>OR Upload a News File</h2>
+    <input type="file" id="file-input" accept=".txt,.docx,.pdf">
+    <button onclick="analyzeFile()">Analyze File</button>
+
+    <div class="loader" id="loader">Analyzing, please wait...</div>
+
+    <div class="result-box" id="result-box">Result will appear here.</div>
+  </div>
+
+  <script>
+    function showLoader(show) {
+      document.getElementById('loader').style.display = show ? 'block' : 'none';
+    }
+
+    function displayResult(result) {
+      const box = document.getElementById('result-box');
+      box.innerText = result;
+      box.style.display = 'block';
+    }
+
+    async function analyzeText() {
+      const content = document.getElementById('text-input').value.trim();
+      if (!content) return alert("Please enter some text.");
+      showLoader(true);
+      const res = await fetch("/analyze-text", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content })
+      });
+      const data = await res.json();
+      showLoader(false);
+      displayResult(data.result);
+    }
+
+    async function analyzeURL() {
+      const url = document.getElementById('url-input').value.trim();
+      if (!url) return alert("Please enter a URL.");
+      showLoader(true);
+      const res = await fetch("/analyze-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+      });
+      const data = await res.json();
+      showLoader(false);
+      displayResult(data.result);
+    }
+
+    async function analyzeFile() {
+      const fileInput = document.getElementById('file-input');
+      if (!fileInput.files[0]) return alert("Please upload a file.");
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      showLoader(true);
+      const res = await fetch("/analyze-file", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      showLoader(false);
+      displayResult(data.result);
+    }
+  </script>
+
+</body>
+</html>
